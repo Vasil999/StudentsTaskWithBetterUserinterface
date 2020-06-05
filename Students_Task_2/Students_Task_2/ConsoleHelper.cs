@@ -57,6 +57,7 @@ namespace Students_Task_2
                             break;
                         }
                     case ConsoleKey.RightArrow:
+                    case ConsoleKey.D:
                         {
                             if (currentSelection % optionsPerLine < optionsPerLine - 1)
                                 currentSelection++;
@@ -65,6 +66,7 @@ namespace Students_Task_2
                             break;
                         }
                     case ConsoleKey.UpArrow:
+                    case ConsoleKey.W:
                         {
                             if (currentSelection >= optionsPerLine)
                                 currentSelection -= optionsPerLine;
@@ -73,6 +75,7 @@ namespace Students_Task_2
                             break;
                         }
                     case ConsoleKey.DownArrow:
+                    case ConsoleKey.S:
                         {
                             if (currentSelection + optionsPerLine < options.Length)
                                 currentSelection += optionsPerLine;
