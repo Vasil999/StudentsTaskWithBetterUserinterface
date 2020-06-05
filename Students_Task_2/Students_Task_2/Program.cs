@@ -2,12 +2,16 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace Students_Task_2
 {
     class Program
     {
         #region Variables for the program 
+        //appconfig to be able to change the path for the user
+        static string path = ConfigurationManager.AppSettings["fileDirectory"];
+
         //declaring variable, that tracks if everything is alright
         static bool isEverythingAlright = true;
 
@@ -95,7 +99,7 @@ namespace Students_Task_2
         private static void CheckIfAllStudentsAreGivenRightDeleteEmptyRowsAndWarnUser()
         {
             //separating the students 
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             for (int i = 0; i < students.Length; i++)
             {
@@ -114,7 +118,7 @@ namespace Students_Task_2
                             students = students.SkipLast(1).ToArray();
 
                             //refreshing the text in the textfile, without empty rows at the end of the while loop
-                            using (StreamWriter writer = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt"))
+                            using (StreamWriter writer = new StreamWriter(path))
                             {
                                 foreach (string student in students)
                                 {
@@ -126,7 +130,7 @@ namespace Students_Task_2
                         }
 
                         //refreshing the text in the textfile, without empty rows at the end of the while loop
-                        using (StreamWriter writer = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt"))
+                        using (StreamWriter writer = new StreamWriter(path))
                         {
                             foreach (string student in students)
                             {
@@ -148,7 +152,7 @@ namespace Students_Task_2
                     //adding warningsingnal for the user
                     students[i] = "#####Problem####  " + students[i];
 
-                    using (StreamWriter writer = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt"))
+                    using (StreamWriter writer = new StreamWriter(path))
                     {
                         foreach (string student in students)
                         {
@@ -166,7 +170,7 @@ namespace Students_Task_2
                     "\nfirst name   middle Name   last name   personal identification number (6 digits)   student number (7 digits)   grades");
 
                 //opening textfile, so that the user can correct the wrong entered student
-                System.Diagnostics.Process.Start("notepad", @"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+                System.Diagnostics.Process.Start("notepad", path);
             }
             else
             {
@@ -188,7 +192,7 @@ namespace Students_Task_2
             PrintLine();
 
             //separating the students 
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             foreach (string student in students)
             {
@@ -225,7 +229,7 @@ namespace Students_Task_2
             string identNum = Console.ReadLine();
             SetConsoleWidth();
 
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             for (int i = 0; i < students.Length; i++)
             {
@@ -260,7 +264,7 @@ namespace Students_Task_2
 
             SetConsoleWidth();
 
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             for (int i = 0; i < students.Length; i++)
             {
@@ -293,7 +297,7 @@ namespace Students_Task_2
             Console.WriteLine("Please enter the personal identification number of the student");
             string identNum = Console.ReadLine();
 
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             for (int i = 0; i < students.Length; i++)
             {
@@ -315,7 +319,7 @@ namespace Students_Task_2
                         continue;
                     }
 
-                    using (StreamWriter streamWriter = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt"))
+                    using (StreamWriter streamWriter = new StreamWriter(path))
                     {
                         streamWriter.Write(newFileText);
                     }
@@ -351,7 +355,7 @@ namespace Students_Task_2
                 }
 
                 //Adding student to the textfile
-                using (StreamWriter writer = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt", true))
+                using (StreamWriter writer = new StreamWriter(path, true))
                 {
                     writer.WriteLine(studentInfo);
                 }
@@ -377,7 +381,7 @@ namespace Students_Task_2
                         studentInfo += information + " ";
                     }
 
-                    using (StreamWriter writer = new StreamWriter(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt", true))
+                    using (StreamWriter writer = new StreamWriter(path, true))
                     {
                         writer.WriteLine(studentInfo);
                     }
@@ -397,7 +401,7 @@ namespace Students_Task_2
         private static void ShowAvarageGrades()
         {
             SetConsoleWidth();
-            string[] students = File.ReadAllLines(@"C:\Users\vasil\source\repos\StudentsTaskWithBetterUserinterface\Students.txt");
+            string[] students = File.ReadAllLines(path);
 
             foreach (string student in students)
             {
