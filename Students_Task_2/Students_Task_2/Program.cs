@@ -20,36 +20,33 @@ namespace Students_Task_2
 
         //Regex for checking, if student is given right
         //It is very important to write it in the right order. Because of this an excel would probably work fine, in the WinForms Application :)
-        static Regex regex = new Regex(@"([a-zA-Z]+(\s*)+){3}(([0-9]{6})+(\s*)+)(([0-9]{7})+(\s*)+)([2-6].[0-9][0-9]+(\s*)+)+");
+        static Regex regex = new Regex(@"^([a-zA-Z]+(\s*)+){3}(([0-9]{6})+(\s*)+)(([0-9]{7})+(\s*)+)(([2-6].[0-9][0-9]+(\s*)+)+)$");
         #endregion
 
         #region MainMethod
         static void Main(string[] args)
         {
-            while (isEverythingAlright)
-            {
-                //prepare program to run smoothly
-                CheckIfAllStudentsAreGivenRightDeleteEmptyRowsAndWarnUser();
-
-                //going out from the while loop if there are no mistakes
-                if (isEverythingAlright)
-                {
-                    isEverythingAlright = false;
-                }
-                else
-                {
-                    isEverythingAlright = true;
-
-                    //making sure loop doesnot continue before the user can change the wrong row
-                    string h = Console.ReadLine();
-                }
-            }
 
             while (true)
             {
-                //Welcome user
-                Console.WriteLine("Welcome to Students App");
-                Console.WriteLine("Please chose a command: ");
+                while (isEverythingAlright)
+                {
+                    //prepare program to run smoothly
+                    CheckIfAllStudentsAreGivenRightDeleteEmptyRowsAndWarnUser();
+
+                    //going out from the while loop if there are no mistakes
+                    if (isEverythingAlright)
+                    {
+                        isEverythingAlright = false;
+                    }
+                    else
+                    {
+                        isEverythingAlright = true;
+
+                        //making sure loop doesnot continue before the user can change the wrong row
+                        string h = Console.ReadLine();
+                    }
+                }
 
                 //Show menu
                 int selectedCommand = ConsoleHelper.ShowMenu(true, "SHOW ALL", "SEARCH BY PERSONAL IDENTIFICATION NUMBER", "SEARCH BY STUDENT NUMBER"
@@ -334,6 +331,7 @@ namespace Students_Task_2
         private static void AddStudent()
         {
             SetConsoleWidth();
+
             //Showing entering pattern to the user
             Console.WriteLine("Use the following pattern without entering punctuation marks:" +
                     "\nfirst name   middle Name   last name   personal identification number (6 digits)   student number (7 digits)   grades");
@@ -347,6 +345,7 @@ namespace Students_Task_2
                 //Making sure not all whitespaces entered by the user will be printed out in the textfile
                 string[] studentInfoElements = studentInfo.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
+                //setting studentInfo to "" again
                 studentInfo = "";
 
                 foreach (string information in studentInfoElements)
